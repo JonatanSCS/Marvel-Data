@@ -19,9 +19,9 @@ export const resetCharacterPagination = (page) => {
   }
 }
 
-export const searchCharacterByLetter = (name) => {
+export const searchCharacterByInput = (name) => {
   return {
-    type: 'SEACTH_CHARACTER_BY_LETTER',
+    type: 'SEARCH_CHARACTER_BY_INPUT',
     name
   }
 }

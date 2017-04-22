@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
-import { searchCharacterByLetter, resetCharacterPagination } from '../../actions/index'
+import { searchCharacterByInput } from '../../actions/index'
 
 class InputSeacrh extends Component {
 
@@ -8,32 +9,37 @@ class InputSeacrh extends Component {
     super(props)
 
     this.state = {
-      searchingName: '',
+      searchedName: props.inputSearch,
       store: props.store
     }
-
     this.handleNewLetter = this.handleNewLetter.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.searchCharacter = this.searchCharacter.bind(this)
+
   }
 
   handleNewLetter(e) {
-
-    this.state.store.dispatch(resetCharacterPagination(1))
-    this.state.store.dispatch(searchCharacterByLetter(e.target.value))
-    const searchingName = this.state.store.getState().InputGetNewLetter
-
     this.setState( {
-      searchingName: searchingName
+      searchedName: e.target.value
     })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    const searchButton = document.getElementById('searchCharacterButton')
+    searchButton.click()
+  }
+
+  searchCharacter() {
+    this.state.store.dispatch(searchCharacterByInput(this.state.searchedName))
   }
 
   render() {
     return(
-      <div className="form-group row">
-        <label htmlFor="character-name" className="col-2 col-form-label">Busar: </label>
-        <div className="col-10">
-          <input onChange={ this.handleNewLetter } className="form-control" type="text" id="character-name" value={ this.state.searchingName || '' }/>
-        </div>
-      </div>
+      <form className="form-group row" onSubmit={ this.handleSubmit }>
+        <input onChange={ this.handleNewLetter } className="form-control col-sm-5" type="text" id="character-name" value={ this.state.searchedName }/>
+        <Link to={'/characters/' + this.state.searchedName } className="btn btn-primary col-sm-1" id="searchCharacterButton" onClick={ this.searchCharacter }>Buscar</Link>
+      </form>
     )
   }
 }

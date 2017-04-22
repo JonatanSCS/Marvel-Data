@@ -33,7 +33,7 @@ class CharacterListClass extends Component {
     this.handlePageChange = this.handlePageChange.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     store.subscribe(this.handlePageChange)
     this.getMarvelData(this.state.page, this.state.inputSearch)
   }
@@ -64,20 +64,29 @@ class CharacterListClass extends Component {
 
   listNewCharacters(charactersData) {
 
+    const searchedName = store.getState().inputGetNewCharacter
+    const characterReults = charactersData.data.results
+    let charactersList = ''
+
     this.setState({
       charactersCount: charactersData.data.total
     })
-    const characterReults = charactersData.data.results
-    const charactersList = characterReults.map((character) =>
-      <Character key={ character.id } characterData={ character }/>
-    )
+
+    if(characterReults.length !== 0) {
+       charactersList = characterReults.map((character) =>
+        <Character key={ character.id } characterData={ character }/>
+      )
+    } else {
+      charactersList = <h1>{ searchedName }: Sin resultados</h1>
+    }
+
     this.setState({
       charactersList: charactersList
     })
   }
 
   handlePageChange() {
-    const searchedName = store.getState().InputGetNewLetter
+    const searchedName = store.getState().inputGetNewCharacter
     const page = store.getState().changeCharacterPage
 
     this.getMarvelData(page, searchedName)
@@ -87,7 +96,7 @@ class CharacterListClass extends Component {
     return (
       <div className="container">
         <Pagination store={ store } charactersCount={ this.state.charactersCount }/>
-        <InputSearch store={ store } />
+        <InputSearch store={ store } inputSearch={ this.state.inputSearch }/>
         <div className="row d-flex flex-wrap justify-content-around">
           { this.state.charactersList }
         </div>
