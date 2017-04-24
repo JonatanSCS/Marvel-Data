@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
+import './CharacterDetail.css'
+
 
 class CharacterDetailClass extends Component {
   constructor(props) {
@@ -51,11 +53,16 @@ class CharacterDetailClass extends Component {
   render() {
     const character = this.state
     return(
-      <div>
-        <img className="card-img-top" src={ character.image.path + '/portrait_fantastic.' + character.image.extension } alt={ character.name+ 'Image'}/>
-        <h1>{ character.id }</h1>
-        <p>{ character.name }</p>
-        <p>{ character.description }</p>
+      <div className="container">
+        <div className="row d-flex justify-content-center">
+          <div className="col-sm-12 col-md-6 character-detail-container">
+            <img className="card-img-top" src={ character.image.path + '/portrait_fantastic.' + character.image.extension } alt={ character.name+ 'Image'}/>
+            <p className="character-id"><small>ID: </small>{ character.id }</p>
+            <h1>{ character.name }</h1>
+            <p className="character-description">{ character.description }</p>
+          </div>
+        </div>
+
       </div>
     )
   }
