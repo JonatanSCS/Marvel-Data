@@ -9,14 +9,15 @@ import InputSearch from './components/InputSearch/InputSearch'
 import Pagination from './components/Pagination/Pagination'
 
 
-
-
 const store = createStore(characterApp)
+
 class CharacterListClass extends Component {
 
   constructor(props) {
     super(props)
+
     let searchName = ''
+
     if(props.name !== undefined) {
       searchName = props.name
     }
@@ -39,17 +40,17 @@ class CharacterListClass extends Component {
   }
 
   getMarvelData(actualPage, inputSearch) {
-    const baseUrl = 'https://gateway.marvel.com'
     const apiKey = '68b26e9204aa8011100128eb75e5b293'
-
     const limitCharacters = 20;
     const offsetCharacters = ( limitCharacters * actualPage ) - limitCharacters
+    const baseUrl = 'https://gateway.marvel.com/v1/public/characters?apikey=' + apiKey + '&offset=' + offsetCharacters
 
     let requestUrl = ''
+
     if(inputSearch !== '') {
-      requestUrl = baseUrl + '/v1/public/characters?apikey=' + apiKey + '&offset=' + offsetCharacters + '&nameStartsWith=' + inputSearch
+      requestUrl = baseUrl + '&nameStartsWith=' + inputSearch
     } else {
-      requestUrl = baseUrl + '/v1/public/characters?apikey=' + apiKey + '&offset=' + offsetCharacters
+      requestUrl = baseUrl
     }
 
     axios.get(requestUrl)
@@ -63,8 +64,7 @@ class CharacterListClass extends Component {
 
 
   listNewCharacters(charactersData) {
-
-    const searchedName = store.getState().inputGetNewCharacter
+    const searchedName = store.getState().searchNewCharacter.name
     const characterReults = charactersData.data.results
     let charactersList = ''
 
@@ -86,8 +86,8 @@ class CharacterListClass extends Component {
   }
 
   handlePageChange() {
-    const searchedName = store.getState().inputGetNewCharacter
-    const page = store.getState().changeCharacterPage
+    const searchedName = store.getState().searchNewCharacter.name
+    const page = store.getState().searchNewCharacter.page
 
     this.getMarvelData(page, searchedName)
   }
@@ -95,7 +95,7 @@ class CharacterListClass extends Component {
   render() {
     return (
       <div className="container">
-        <Pagination store={ store } charactersCount={ this.state.charactersCount }/>
+        <Pagination store={ store } charactersCount={ this.state.charactersCount } />
         <InputSearch store={ store } inputSearch={ this.state.inputSearch }/>
         <div ref="characterList" className="row d-flex flex-wrap justify-content-around">
           { this.state.charactersList }
@@ -108,4 +108,5 @@ class CharacterListClass extends Component {
 const CharacterList = ({ match }) => (
   <CharacterListClass name={ match.params.name }/>
 )
+
 export default CharacterList

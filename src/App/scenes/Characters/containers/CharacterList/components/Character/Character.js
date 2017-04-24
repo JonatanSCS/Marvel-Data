@@ -8,6 +8,7 @@ class Character extends Component {
   constructor(props) {
     super(props)
     const character = props.characterData
+
     this.state = {
       id : character.id,
       name : character.name,
@@ -21,6 +22,7 @@ class Character extends Component {
 
   render() {
     const character = this.state
+
     return(
       <div className="card characterCard">
         <img className="card-img-top" src={ character.image.path + '/portrait_fantastic.' + character.image.extension } alt={ character.name + 'Image'}/>

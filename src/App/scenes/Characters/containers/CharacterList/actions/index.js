@@ -1,27 +1,8 @@
-export const nextCharacterPage = (page) => {
-  return {
-    type: 'NEXT_CHARACTER_PAGE',
-    page
-  }
-}
 
-export const previusCharacterPage = (page) => {
+export const searchNewCharacters = (name, page) => {
   return {
-    type: 'PREVIUS_CHARACTER_PAGE',
+    type: 'SEARCH_NEW_CHARACTER',
+    name,
     page
-  }
-}
-
-export const resetCharacterPagination = (page) => {
-  return {
-    type: 'RESET_CHARACTER_PAGINATION',
-    page
-  }
-}
-
-export const searchCharacterByInput = (name) => {
-  return {
-    type: 'SEARCH_CHARACTER_BY_INPUT',
-    name
   }
 }

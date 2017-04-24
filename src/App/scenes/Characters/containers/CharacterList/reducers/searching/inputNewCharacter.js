@@ -1,10 +1,13 @@
-const inputGetNewCharacter = (state = '', action) => {
+const searchNewCharacter = (state = '', action) => {
   switch (action.type) {
-    case 'SEARCH_CHARACTER_BY_INPUT':
-      return action.name
+    case 'SEARCH_NEW_CHARACTER':
+      return action
     default:
-      return state
+      return {
+        name: '',
+        page: 1
+      }
   }
 }
 
-export default inputGetNewCharacter
+export default searchNewCharacter
