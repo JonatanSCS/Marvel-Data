@@ -6,7 +6,7 @@ import Nav from './layers/Nav/Nav'
 import Home from './scenes/Home/Home'
 import Characters from './scenes/Characters/Characters'
 
-const BasicExample = () => (
+const MarvelApp = () => (
   <Router>
     <div>
       <Nav />
@@ -15,4 +15,4 @@ const BasicExample = () => (
     </div>
   </Router>
 )
-export default BasicExample
+export default MarvelApp

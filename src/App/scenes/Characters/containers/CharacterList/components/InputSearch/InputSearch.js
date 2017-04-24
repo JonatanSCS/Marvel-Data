@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 
 import { searchNewCharacters } from '../../actions/index'
 
-class InputSeacrh extends Component {
+class InputSearch extends Component {
 
   constructor(props) {
     super(props)
@@ -20,8 +19,9 @@ class InputSeacrh extends Component {
 
   componentDidMount() {
     const inputInitialValue = this.refs.searchCharacterInput.value
-
-    this.state.store.dispatch(searchNewCharacters(inputInitialValue, 1))
+    if(this.state.store !== undefined) {
+      this.state.store.dispatch(searchNewCharacters(inputInitialValue, 1))
+    }
   }
 
   handleNewLetter(e) {
@@ -45,10 +45,10 @@ class InputSeacrh extends Component {
     return(
       <form className="form-group row" onSubmit={ this.handleSubmit }>
         <input ref="searchCharacterInput" onChange={ this.handleNewLetter } className="form-control col-sm-5" type="text" id="character-name" value={ this.state.searchedName }/>
-        <Link to={'/characters/' + this.state.searchedName } className="btn btn-primary col-sm-1" id="searchCharacterButton" onClick={ this.searchCharacter }>Buscar</Link>
+        <a href={'/characters/' + this.state.searchedName } className="btn btn-primary col-sm-1" id="searchCharacterButton" onClick={ this.searchCharacter }>Buscar</a>
       </form>
     )
   }
 }
 
-export default InputSeacrh
+export default InputSearch

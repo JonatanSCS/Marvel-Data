@@ -10,7 +10,6 @@ class Pagination extends Component {
     this.nextPage = this.nextPage.bind(this)
   }
 
-
   previusPage() {
     const actualPage = this.props.store.getState().searchNewCharacter.page
     const actualSearch = this.props.store.getState().searchNewCharacter.name
@@ -34,7 +33,10 @@ class Pagination extends Component {
   }
 
   render() {
-    const actualPage = this.props.store.getState().searchNewCharacter.page
+    let actualPage = 1
+    if(this.props.store !== undefined) {
+      actualPage = this.props.store.getState().searchNewCharacter.page
+    }
     const maxCharactersCount = Math.ceil(this.props.charactersCount / 20)
 
     let prevStatus = ''
@@ -48,8 +50,8 @@ class Pagination extends Component {
       nextStatus = 'disabled'
     }
 
-    let previusPagePagination = <li className={ 'page-item ' +  prevStatus}><button className="page-link" onClick={this.previusPage}>Previous</button></li>
-    let nextPagePagination = <li className={ 'page-item ' +  nextStatus}><button className="page-link"  onClick={this.nextPage}>Next</button></li>
+    let previusPagePagination = <li className={ 'page-item ' +  prevStatus}><button className="page-link previus-button" onClick={this.previusPage}>Previous</button></li>
+    let nextPagePagination = <li className={ 'page-item ' +  nextStatus}><button className="page-link next-button"  onClick={this.nextPage}>Next</button></li>
 
 
 
