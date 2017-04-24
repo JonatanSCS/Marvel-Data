@@ -68,9 +68,6 @@ class CharacterListClass extends Component {
     const characterReults = charactersData.data.results
     let charactersList = ''
 
-    this.setState({
-      charactersCount: charactersData.data.total
-    })
 
     if(characterReults.length !== 0) {
        charactersList = characterReults.map((character) =>
@@ -80,9 +77,12 @@ class CharacterListClass extends Component {
       charactersList = <h1>{ searchedName }: Sin resultados</h1>
     }
 
-    this.setState({
-      charactersList: charactersList
-    })
+    if (this.refs.characterList) {
+      this.setState({
+        charactersList: charactersList,
+        charactersCount: charactersData.data.total
+      })
+    }
   }
 
   handlePageChange() {
@@ -97,7 +97,7 @@ class CharacterListClass extends Component {
       <div className="container">
         <Pagination store={ store } charactersCount={ this.state.charactersCount }/>
         <InputSearch store={ store } inputSearch={ this.state.inputSearch }/>
-        <div className="row d-flex flex-wrap justify-content-around">
+        <div ref="characterList" className="row d-flex flex-wrap justify-content-around">
           { this.state.charactersList }
         </div>
       </div>
