@@ -30,16 +30,16 @@ class CharacterListClass extends Component {
     }
 
     this.listNewCharacters = this.listNewCharacters.bind(this)
-    this.getMarvelData = this.getMarvelData.bind(this)
+    this.getCharactersData = this.getCharactersData.bind(this)
     this.handlePageChange = this.handlePageChange.bind(this)
   }
 
   componentDidMount() {
     store.subscribe(this.handlePageChange)
-    this.getMarvelData(this.state.page, this.state.inputSearch)
+    this.getCharactersData(this.state.page, this.state.inputSearch)
   }
 
-  getMarvelData(actualPage, inputSearch) {
+  getCharactersData(actualPage, inputSearch) {
     const apiKey = '68b26e9204aa8011100128eb75e5b293'
     const limitCharacters = 20;
     const offsetCharacters = ( limitCharacters * actualPage ) - limitCharacters
@@ -89,7 +89,7 @@ class CharacterListClass extends Component {
     const searchedName = store.getState().searchNewCharacter.name
     const page = store.getState().searchNewCharacter.page
 
-    this.getMarvelData(page, searchedName)
+    this.getCharactersData(page, searchedName)
   }
 
   render() {
