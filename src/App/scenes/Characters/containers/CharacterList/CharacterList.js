@@ -30,27 +30,24 @@ class CharacterListClass extends Component {
     }
 
     this.listNewCharacters = this.listNewCharacters.bind(this)
-    this.getCharactersData = this.getCharactersData.bind(this)
+    this.getMarvelData = this.getMarvelData.bind(this)
     this.handlePageChange = this.handlePageChange.bind(this)
   }
 
   componentDidMount() {
     store.subscribe(this.handlePageChange)
-    this.getCharactersData(this.state.page, this.state.inputSearch)
+    this.getMarvelData(this.state.page, this.state.inputSearch)
   }
 
-  getCharactersData(actualPage, inputSearch) {
+  getMarvelData(actualPage, inputSearch) {
     const apiKey = '68b26e9204aa8011100128eb75e5b293'
     const limitCharacters = 20;
     const offsetCharacters = ( limitCharacters * actualPage ) - limitCharacters
     const baseUrl = 'https://gateway.marvel.com/v1/public/characters?apikey=' + apiKey + '&offset=' + offsetCharacters
-
-    let requestUrl = ''
+    let requestUrl = baseUrl
 
     if(inputSearch !== '') {
-      requestUrl = baseUrl + '&nameStartsWith=' + inputSearch
-    } else {
-      requestUrl = baseUrl
+      requestUrl = requestUrl + '&nameStartsWith=' + inputSearch
     }
 
     axios.get(requestUrl)
@@ -89,7 +86,11 @@ class CharacterListClass extends Component {
     const searchedName = store.getState().searchNewCharacter.name
     const page = store.getState().searchNewCharacter.page
 
-    this.getCharactersData(page, searchedName)
+    this.getMarvelData(page, searchedName)
+  }
+
+  suma(a, b) {
+    return a + b;
   }
 
   render() {
