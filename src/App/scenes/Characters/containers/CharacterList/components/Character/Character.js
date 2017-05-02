@@ -27,8 +27,8 @@ class Character extends Component {
       <div className="card characterCard">
         <img className="card-img-top" src={ character.image.path + '/portrait_fantastic.' + character.image.extension } alt={ character.name + 'Image'}/>
         <div className="card-block ">
-          <h4 className="card-title">{ character.name }</h4>
-          <p className="card-text">{ character.description.substring(0, 40) }</p>
+          <h4 className="card-title">{ character.name || 'Sin nombre'}</h4>
+          <p className="card-text">{ character.description.substring(0, 40) || 'Sin Descripción'}</p>
           <Link to={'/characters/character/' + character.id} className="btn btn-primary characterIdButton">Detail</Link>
         </div>
       </div>

@@ -1,0 +1,12 @@
+.character-detail-container {
+  text-align: center;
+}
+
+.character-id {
+  margin: 1em;
+}
+
+.character-description {
+  margin: 1em;
+  text-align: left;
+}
